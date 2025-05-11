@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbkn6fh1r87jp"]
+
+[ext_resource type="Texture2D" uid="uid://d2imuevslk0la" path="res://assets/game/characters/zombie_hand/zombie_hand.png" id="1_cx80o"]
+[ext_resource type="Script" uid="uid://cpjf4nihlgi1e" path="res://scenes/objects/hole.gd" id="1_lhvvt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhvvt"]
+atlas = ExtResource("1_cx80o")
+region = Rect2(5, 26, 23, 6)
+
+[node name="Hole" type="Node2D"]
+script = ExtResource("1_lhvvt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -12)
+scale = Vector2(4, 4)
+texture = SubResource("AtlasTexture_lhvvt")
+
+[node name="SpawnPoint" type="Marker2D" parent="."]

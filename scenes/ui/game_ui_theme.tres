@@ -1,0 +1,27 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://ciqny1m6cdda7"]
+
+[ext_resource type="Texture2D" uid="uid://dqlesmcnvk72q" path="res://assets/ui/horror_ui.png" id="1_nhbk8"]
+[ext_resource type="FontVariation" path="res://assets/ui/fonts/zx_palm_variation.tres" id="2_68i34"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68i34"]
+atlas = ExtResource("1_nhbk8")
+region = Rect2(3, 67, 10, 10)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mtjyl"]
+texture = SubResource("AtlasTexture_68i34")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 4.0
+
+[resource]
+HeartContainer/base_type = &"PanelContainer"
+HeartContainer/styles/panel = SubResource("StyleBoxTexture_mtjyl")
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 10
+MarginContainer/constants/margin_top = 10
+ScoreLabel/base_type = &"Label"
+ScoreLabel/colors/font_color = Color(0.784314, 0.156863, 0.152941, 1)
+ScoreLabel/font_sizes/font_size = 24
+ScoreLabel/fonts/font = ExtResource("2_68i34")
