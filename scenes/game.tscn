@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsycym3rhrc57"]
+[gd_scene load_steps=5 format=3 uid="uid://dsycym3rhrc57"]
 
 [ext_resource type="Script" uid="uid://bb4olehsgsm1y" path="res://scenes/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://dbkn6fh1r87jp" path="res://scenes/objects/hole.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://cmeepixmlhdoy" path="res://scenes/ui/game_screen.tscn" id="1_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://dcjd0y32r2c03" path="res://scenes/ui/cursor.tscn" id="4_lbhrr"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lnu2h")
@@ -13,40 +14,69 @@ offset_bottom = 720.0
 size_flags_horizontal = 2
 size_flags_vertical = 2
 mouse_filter = 2
-color = Color(0.172833, 0.172833, 0.172833, 1)
+color = Color(0.0937794, 0.1215, 0.0747961, 1)
 
 [node name="GameScreen" parent="." instance=ExtResource("1_yqjtg")]
 
 [node name="HoleContainer" type="Node2D" parent="."]
 
 [node name="Hole" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
-position = Vector2(640, 240)
+position = Vector2(160, 240)
 
 [node name="Hole2" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
-position = Vector2(832, 240)
+position = Vector2(352, 240)
 
 [node name="Hole3" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
-position = Vector2(1024, 240)
+position = Vector2(544, 240)
 
 [node name="Hole4" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
-position = Vector2(640, 432)
+position = Vector2(160, 432)
 
 [node name="Hole5" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
-position = Vector2(832, 432)
+position = Vector2(352, 432)
 
 [node name="Hole6" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
-position = Vector2(1024, 432)
+position = Vector2(544, 432)
 
 [node name="Hole7" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
-position = Vector2(640, 624)
+position = Vector2(160, 624)
 
 [node name="Hole8" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
-position = Vector2(832, 624)
+position = Vector2(352, 624)
 
 [node name="Hole9" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
-position = Vector2(1024, 624)
+position = Vector2(544, 624)
+
+[node name="Hole10" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
+position = Vector2(736, 240)
+
+[node name="Hole11" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
+position = Vector2(928, 240)
+
+[node name="Hole12" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
+position = Vector2(1120, 240)
+
+[node name="Hole13" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
+position = Vector2(736, 432)
+
+[node name="Hole14" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
+position = Vector2(928, 432)
+
+[node name="Hole15" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
+position = Vector2(1120, 432)
+
+[node name="Hole16" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
+position = Vector2(736, 624)
+
+[node name="Hole17" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
+position = Vector2(928, 624)
+
+[node name="Hole18" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
+position = Vector2(1120, 624)
 
 [node name="SpawnTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Cursor" parent="." instance=ExtResource("4_lbhrr")]
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

@@ -22,8 +22,6 @@ func _ready() -> void:
 	for hole_node in hole_container.get_children():
 		if hole_node is Node2D:
 			holes.append(hole_node)
-	
-	start_new_game()
 
 func start_new_game() -> void:
 	score = 0
@@ -76,4 +74,3 @@ func _on_zombie_escaped(_zombie_instance, _hole_instance) -> void:
 	if lives <= 0:
 		game_over.emit()
 		spawn_timer.stop()
-		print("GAME OVER")

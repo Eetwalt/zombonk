@@ -27,7 +27,8 @@ project/assembly_name="zombonk"
 
 folder_colors={
 "res://assets/": "orange",
-"res://scenes/": "green"
+"res://scenes/": "green",
+"res://scripts/": "pink"
 }
 
 [input]
