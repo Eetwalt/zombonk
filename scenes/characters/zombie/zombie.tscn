@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://b237710apjpfq"]
 
 [ext_resource type="Texture2D" uid="uid://d2imuevslk0la" path="res://assets/game/characters/zombie_hand/zombie_hand.png" id="1_1we5g"]
-[ext_resource type="Script" uid="uid://bj5aq1pyitwvt" path="res://scenes/characters/zombie_hand/zombie_hand.gd" id="1_n884q"]
+[ext_resource type="Script" uid="uid://bj5aq1pyitwvt" path="res://scenes/characters/zombie/zombie.gd" id="1_n884q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1we5g"]
 atlas = ExtResource("1_1we5g")
@@ -115,7 +115,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_7dfsl"]
 radius = 87.0919
 
-[node name="ZombieHand" type="Area2D"]
+[node name="Zombie" type="Area2D"]
 script = ExtResource("1_n884q")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -132,6 +132,8 @@ position = Vector2(0, -59)
 shape = SubResource("CircleShape2D_7dfsl")
 
 [node name="UptimeTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="UptimeTimer" to="." method="_on_uptime_timer_timeout"]

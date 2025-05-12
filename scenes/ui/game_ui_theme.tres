@@ -1,7 +1,20 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://ciqny1m6cdda7"]
+[gd_resource type="Theme" load_steps=19 format=3 uid="uid://ciqny1m6cdda7"]
 
 [ext_resource type="Texture2D" uid="uid://dqlesmcnvk72q" path="res://assets/ui/horror_ui.png" id="1_nhbk8"]
-[ext_resource type="FontVariation" path="res://assets/ui/fonts/zx_palm_variation.tres" id="2_68i34"]
+[ext_resource type="FontVariation" uid="uid://cmlapx5qy3jx8" path="res://assets/ui/fonts/zx_palm_variation.tres" id="2_68i34"]
+[ext_resource type="FontFile" uid="uid://b7bjdm0lntf4v" path="res://assets/ui/fonts/pixelFont-7-8x14-sproutLands.ttf" id="2_mtjyl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cqa1q"]
+atlas = ExtResource("1_nhbk8")
+region = Rect2(17, 18, 14, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1hvfw"]
+texture = SubResource("AtlasTexture_cqa1q")
+texture_margin_left = 2.0
+texture_margin_top = 10.0
+texture_margin_right = 2.0
+texture_margin_bottom = 11.0
+region_rect = Rect2(0, 0, 14, 13)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_68i34"]
 atlas = ExtResource("1_nhbk8")
@@ -14,13 +27,83 @@ texture_margin_top = 2.0
 texture_margin_right = 2.0
 texture_margin_bottom = 4.0
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r32iy"]
+load_path = "res://.godot/imported/horror_ui.png-36a16160727a1916f1658d9c4248b94c.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w57q2"]
+atlas = SubResource("CompressedTexture2D_r32iy")
+region = Rect2(70, 234, 52, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3405b"]
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+texture = SubResource("AtlasTexture_w57q2")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kwis4"]
+load_path = "res://.godot/imported/horror_ui.png-36a16160727a1916f1658d9c4248b94c.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1fwkl"]
+atlas = SubResource("CompressedTexture2D_kwis4")
+region = Rect2(6, 234, 52, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mtujg"]
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+texture = SubResource("AtlasTexture_1fwkl")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2isuy"]
+atlas = ExtResource("1_nhbk8")
+region = Rect2(6, 234, 52, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_owel7"]
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+texture = SubResource("AtlasTexture_2isuy")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ivv52"]
+load_path = "res://.godot/imported/horror_ui.png-36a16160727a1916f1658d9c4248b94c.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x862q"]
+atlas = SubResource("CompressedTexture2D_ivv52")
+region = Rect2(6, 234, 52, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iyedh"]
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+texture = SubResource("AtlasTexture_x862q")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 4.0
+
 [resource]
+ChalkBoardContainer/base_type = &"PanelContainer"
+ChalkBoardContainer/styles/panel = SubResource("StyleBoxTexture_1hvfw")
 HeartContainer/base_type = &"PanelContainer"
 HeartContainer/styles/panel = SubResource("StyleBoxTexture_mtjyl")
 MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
+PrimaryButton/base_type = &"Button"
+PrimaryButton/font_sizes/font_size = 36
+PrimaryButton/fonts/font = ExtResource("2_mtjyl")
+PrimaryButton/styles/disabled = SubResource("StyleBoxTexture_3405b")
+PrimaryButton/styles/hover = SubResource("StyleBoxTexture_mtujg")
+PrimaryButton/styles/normal = SubResource("StyleBoxTexture_owel7")
+PrimaryButton/styles/pressed = SubResource("StyleBoxTexture_iyedh")
 ScoreLabel/base_type = &"Label"
 ScoreLabel/colors/font_color = Color(0.784314, 0.156863, 0.152941, 1)
 ScoreLabel/font_sizes/font_size = 24

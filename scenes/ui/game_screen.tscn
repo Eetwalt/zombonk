@@ -1,73 +1,123 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmeepixmlhdoy"]
+[gd_scene load_steps=4 format=3 uid="uid://cmeepixmlhdoy"]
 
-[ext_resource type="Texture2D" uid="uid://dqlesmcnvk72q" path="res://assets/ui/horror_ui.png" id="1_8hmcv"]
 [ext_resource type="Theme" uid="uid://ciqny1m6cdda7" path="res://scenes/ui/game_ui_theme.tres" id="1_e2vrk"]
 [ext_resource type="Script" uid="uid://e6oum0mhxs6l" path="res://scenes/ui/game_screen.gd" id="1_gusqm"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e2vrk"]
-atlas = ExtResource("1_8hmcv")
-region = Rect2(135, 105, 18, 15)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e2vrk"]
 
 [node name="GameScreen" type="CanvasLayer"]
 script = ExtResource("1_gusqm")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="GameContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_e2vrk")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_e2vrk")
 
-[node name="HeartsPanelContainer" type="PanelContainer" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="GameContainer"]
+layout_mode = 2
+
+[node name="HeartsPanelContainer" type="PanelContainer" parent="GameContainer/MarginContainer"]
+custom_minimum_size = Vector2(128, 44)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_type_variation = &"HeartContainer"
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HeartsPanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="GameContainer/MarginContainer/HeartsPanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HeartsContainer" type="HBoxContainer" parent="MarginContainer/HeartsPanelContainer/MarginContainer"]
+[node name="HeartsContainer" type="HBoxContainer" parent="GameContainer/MarginContainer/HeartsPanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HeartsPanelContainer/MarginContainer/HeartsContainer"]
-custom_minimum_size = Vector2(36, 30)
-layout_mode = 2
-texture = SubResource("AtlasTexture_e2vrk")
-
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer/HeartsPanelContainer/MarginContainer/HeartsContainer"]
-custom_minimum_size = Vector2(36, 30)
-layout_mode = 2
-texture = SubResource("AtlasTexture_e2vrk")
-
-[node name="TextureRect3" type="TextureRect" parent="MarginContainer/HeartsPanelContainer/MarginContainer/HeartsContainer"]
-custom_minimum_size = Vector2(36, 30)
-layout_mode = 2
-texture = SubResource("AtlasTexture_e2vrk")
-
-[node name="ScoreLabelContainer" type="PanelContainer" parent="MarginContainer"]
+[node name="ScoreLabelContainer" type="PanelContainer" parent="GameContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_type_variation = &"HeartContainer"
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ScoreLabelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="GameContainer/MarginContainer/ScoreLabelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 8
 
-[node name="ScoreLabel" type="Label" parent="MarginContainer/ScoreLabelContainer/MarginContainer"]
+[node name="ScoreLabel" type="Label" parent="GameContainer/MarginContainer/ScoreLabelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_type_variation = &"ScoreLabel"
-text = "Zombies Whacked: 0"
+text = "Score: 0"
+
+[node name="GameOverContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_e2vrk")
+
+[node name="PanelContainer" type="PanelContainer" parent="GameOverContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"ChalkBoardContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOverContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 48
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="GameOverLabel" type="Label" parent="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"ScoreLabel"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "Game Over"
+
+[node name="FinalScoreLabel" type="Label" parent="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"ScoreLabel"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Final Score: 0"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PlayAgainButton" type="Button" parent="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"PrimaryButton"
+text = "Play Again"
+
+[node name="MainMenuButton" type="Button" parent="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"PrimaryButton"
+text = "Main Menu"
+
+[connection signal="pressed" from="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]

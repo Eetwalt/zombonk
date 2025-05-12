@@ -47,3 +47,6 @@ position = Vector2(832, 624)
 position = Vector2(1024, 624)
 
 [node name="SpawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

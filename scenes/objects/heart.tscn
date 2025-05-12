@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://yt4c32q5a4wm"]
+
+[ext_resource type="Texture2D" uid="uid://dqlesmcnvk72q" path="res://assets/ui/horror_ui.png" id="1_16al1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2vrk"]
+atlas = ExtResource("1_16al1")
+region = Rect2(135, 105, 18, 15)
+
+[node name="Heart" type="TextureRect"]
+custom_minimum_size = Vector2(36, 30)
+texture = SubResource("AtlasTexture_e2vrk")
