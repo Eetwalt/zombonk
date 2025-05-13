@@ -1,24 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://dsycym3rhrc57"]
+[gd_scene load_steps=7 format=3 uid="uid://dsycym3rhrc57"]
 
 [ext_resource type="Script" uid="uid://bb4olehsgsm1y" path="res://scenes/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://dbkn6fh1r87jp" path="res://scenes/objects/hole.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://cmeepixmlhdoy" path="res://scenes/ui/game_screen.tscn" id="1_yqjtg"]
+[ext_resource type="Texture2D" uid="uid://dl6hngnfm4qpw" path="res://assets/graveyard.jpeg" id="2_iywne"]
 [ext_resource type="PackedScene" uid="uid://dcjd0y32r2c03" path="res://scenes/ui/cursor.tscn" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://j486j6etpk04" path="res://scenes/objects/fog.tscn" id="6_p57ef"]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("game_screen")]
 script = ExtResource("1_lnu2h")
+game_screen = NodePath("GameScreen")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Fog" parent="." instance=ExtResource("6_p57ef")]
+
+[node name="Background" type="TextureRect" parent="."]
 offset_right = 1280.0
 offset_bottom = 720.0
 size_flags_horizontal = 2
 size_flags_vertical = 2
 mouse_filter = 2
-color = Color(0.0937794, 0.1215, 0.0747961, 1)
+texture = ExtResource("2_iywne")
 
 [node name="GameScreen" parent="." instance=ExtResource("1_yqjtg")]
 
 [node name="HoleContainer" type="Node2D" parent="."]
+position = Vector2(0, 46)
 
 [node name="Hole" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
 position = Vector2(160, 240)

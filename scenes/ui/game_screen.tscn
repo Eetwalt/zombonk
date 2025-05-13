@@ -11,6 +11,7 @@ texture = ExtResource("3_gusqm")
 modulate_color = Color(0.380392, 0, 0, 1)
 
 [node name="GameScreen" type="CanvasLayer"]
+layer = 3
 script = ExtResource("1_gusqm")
 
 [node name="GameContainer" type="PanelContainer" parent="."]

@@ -11,12 +11,14 @@ var max_spawn_interval = 2.0
 
 @onready var hole_container: Node2D = $HoleContainer
 @onready var spawn_timer: Timer = $SpawnTimer
+
+@export var game_screen: CanvasLayer
+
 var zombie_scene = preload("res://scenes/characters/zombie/zombie.tscn")
 
 var holes: Array = []
 
 func _ready() -> void:
-	var game_screen = get_child(1)
 	game_screen.play_again.connect(start_new_game)
 	
 	for hole_node in hole_container.get_children():
