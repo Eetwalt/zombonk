@@ -7,7 +7,7 @@
 [node name="Hole" type="Node2D"]
 script = ExtResource("1_lhvvt")
 
-[node name="ZombieHolder" type="Node" parent="."]
+[node name="CharacterHolder" type="Node" parent="."]
 
 [node name="Tombstone" parent="." instance=ExtResource("2_jd7o4")]
 

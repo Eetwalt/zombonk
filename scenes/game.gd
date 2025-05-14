@@ -15,8 +15,10 @@ var max_spawn_interval = 2.0
 @export var game_screen: CanvasLayer
 
 var zombie_scene = preload("res://scenes/characters/zombie/zombie.tscn")
+var drunkard_scene = preload("res://scenes/characters/drunkard/drunkard.tscn")
 
 var holes: Array = []
+var characters: Array = ["zombie", "drunkard"]
 
 func _ready() -> void:
 	game_screen.play_again.connect(start_new_game)
@@ -33,8 +35,11 @@ func start_new_game() -> void:
 	
 	for h in holes:
 		var existing_zombie = h.get_node_or_null("Zombie")
+		var existing_drunkard = h.get_node_or_null("Drunkard")
 		if existing_zombie:
 			existing_zombie.queue_free()
+		if existing_drunkard:
+			existing_drunkard.queue_free()
 	_start_spawn_timer()
 
 func _start_spawn_timer() -> void:
@@ -42,28 +47,40 @@ func _start_spawn_timer() -> void:
 	spawn_timer.start()
 
 func _on_spawn_timer_timeout() -> void:
-	spawn_zombie()
+	spawn_character()
 	_start_spawn_timer()
 	
-func spawn_zombie() -> void:
+func spawn_character() -> void:
 	var available_holes = []
 	for h in holes:
 		if not h.is_occupied():
 			available_holes.append(h)
 		
 	if available_holes.is_empty():
-		print("No available holes to spawn Zombies")
+		print("No available holes to spawn Characters")
 		return
 	
 	var chosen_hole = available_holes.pick_random()
-	var new_zombie = zombie_scene.instantiate()
+	var character = characters.pick_random()
+	if character == "zombie":
+		var new_zombie = zombie_scene.instantiate()
 	
-	new_zombie.connect("whacked", _on_zombie_whacked)
-	new_zombie.connect("escaped", _on_zombie_escaped)
+		new_zombie.connect("whacked", _on_zombie_whacked)
+		new_zombie.connect("escaped", _on_zombie_escaped)
 	
-	new_zombie.set_hole(chosen_hole)
+		new_zombie.set_hole(chosen_hole)
 	
-	chosen_hole.add_zombie(new_zombie)
+		chosen_hole.add_character(new_zombie)
+		
+	if character == "drunkard":
+		var new_drunkard = drunkard_scene.instantiate()
+	
+		new_drunkard.connect("whacked", _on_drunkard_whacked)
+		new_drunkard.connect("escaped", _on_drunkard_escaped)
+	
+		new_drunkard.set_hole(chosen_hole)
+	
+		chosen_hole.add_character(new_drunkard)
 
 
 func _on_zombie_whacked(_zombie_instance, _hole_instance) -> void:
@@ -76,3 +93,14 @@ func _on_zombie_escaped(_zombie_instance, _hole_instance) -> void:
 	if lives <= 0:
 		game_over.emit()
 		spawn_timer.stop()
+
+func _on_drunkard_whacked(_drunkard_instance, _hole_instance) -> void:
+	lives -= 1
+	lives_updated.emit(lives)
+	if lives <= 0:
+		game_over.emit()
+		spawn_timer.stop()
+
+func _on_drunkard_escaped(_drunkard_instance, _hole_instance) -> void:
+	score += 1
+	score_updated.emit(score)
