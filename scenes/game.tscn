@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsycym3rhrc57"]
+[gd_scene load_steps=8 format=3 uid="uid://dsycym3rhrc57"]
 
 [ext_resource type="Script" uid="uid://bb4olehsgsm1y" path="res://scenes/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://dbkn6fh1r87jp" path="res://scenes/objects/hole.tscn" id="1_uwrxv"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dl6hngnfm4qpw" path="res://assets/graveyard.jpeg" id="2_iywne"]
 [ext_resource type="PackedScene" uid="uid://dcjd0y32r2c03" path="res://scenes/ui/cursor.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://j486j6etpk04" path="res://scenes/objects/fog.tscn" id="6_p57ef"]
+[ext_resource type="Script" uid="uid://cxix883lc3g6x" path="res://scenes/camera.gd" id="7_u5sy4"]
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("game_screen")]
 script = ExtResource("1_lnu2h")
@@ -84,5 +85,9 @@ position = Vector2(1120, 624)
 one_shot = true
 
 [node name="Cursor" parent="." instance=ExtResource("4_lbhrr")]
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+script = ExtResource("7_u5sy4")
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

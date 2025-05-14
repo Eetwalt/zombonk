@@ -1,18 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://dbkn6fh1r87jp"]
 
 [ext_resource type="Script" uid="uid://cpjf4nihlgi1e" path="res://scenes/objects/hole.gd" id="1_lhvvt"]
-[ext_resource type="Texture2D" uid="uid://ct1ueiow4s7up" path="res://assets/game/characters/zombie/zombie.png" id="2_lhvvt"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jd7o4"]
-atlas = ExtResource("2_lhvvt")
-region = Rect2(0, 0, 64, 64)
+[ext_resource type="PackedScene" uid="uid://ddkwsh08jvini" path="res://scenes/objects/tombstone.tscn" id="2_jd7o4"]
+[ext_resource type="Texture2D" uid="uid://beq6eaavqpsy3" path="res://assets/game/objects/hole.png" id="2_lhvvt"]
 
 [node name="Hole" type="Node2D"]
 script = ExtResource("1_lhvvt")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="ZombieHolder" type="Node" parent="."]
+
+[node name="Tombstone" parent="." instance=ExtResource("2_jd7o4")]
+
+[node name="Hole" type="Sprite2D" parent="."]
 position = Vector2(0, -64)
 scale = Vector2(2, 2)
-texture = SubResource("AtlasTexture_jd7o4")
+texture = ExtResource("2_lhvvt")
 
 [node name="SpawnPoint" type="Marker2D" parent="."]

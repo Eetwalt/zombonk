@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddkwsh08jvini"]
+
+[ext_resource type="Script" uid="uid://bv3xfgojknmvk" path="res://scenes/objects/tombstone.gd" id="1_yw3ay"]
+
+[node name="Tombstone" type="Sprite2D"]
+position = Vector2(0, -64)
+scale = Vector2(2, 2)
+script = ExtResource("1_yw3ay")
