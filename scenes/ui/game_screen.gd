@@ -25,6 +25,7 @@ var hearts: Array = []
 
 func _ready() -> void:
 	_on_main_menu()
+	blood_overlay.material.set_shader_parameter("opacity", 0.0)
 	
 	var game = get_parent()
 	if game:

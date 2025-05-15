@@ -83,10 +83,10 @@ func spawn_character(character_scene: PackedScene, chosen_hole: Node2D, characte
 	var new_character = character_scene.instantiate()
 	
 	var whacked_function = "_on_" + character_name + "_whacked"
-	var escaped_function = "_on_" + character_name + "_escaped"
+	var attacked_function = "_on_" + character_name + "_attacked"
 	
 	new_character.connect("whacked", Callable(self, whacked_function))
-	new_character.connect("escaped", Callable(self, escaped_function))
+	new_character.connect("attacked", Callable(self, attacked_function))
 
 	new_character.set_hole(chosen_hole)
 
@@ -96,25 +96,20 @@ func _on_zombie_whacked(_zombie_instance, _hole_instance) -> void:
 	score += 1
 	score_updated.emit(score)
 
-func _on_zombie_escaped(_zombie_instance, _hole_instance) -> void:
+func _on_zombie_attacked(_zombie_instance, _hole_instance) -> void:
 	lives -= 1
 	lives_updated.emit(lives)
 	if lives <= 0:
-		game_over.emit()
-		spawn_timer.stop()
-		game_timer.stop()
+		_on_game_over()
 
 func _on_drunkard_whacked(_drunkard_instance, _hole_instance) -> void:
 	warnings += 1
 	warnings_updated.emit(warnings)
 	if warnings >= 3:
-		game_over.emit()
-		spawn_timer.stop()
-		game_timer.stop()
+		_on_game_over()
 
-func _on_drunkard_escaped(_drunkard_instance, _hole_instance) -> void:
+func _on_drunkard_attacked(_drunkard_instance, _hole_instance) -> void:
 	pass
-
 
 func _on_game_timer_timeout() -> void:
 	if min_spawn_interval <= 0.0:
@@ -126,3 +121,10 @@ func _on_game_timer_timeout() -> void:
 		max_spawn_interval = 0.5
 	else:
 		max_spawn_interval -= 0.1
+
+func _on_game_over() -> void:
+	game_over.emit()
+	spawn_timer.stop()
+	game_timer.stop()
+	min_spawn_interval = 0.5
+	max_spawn_interval = 2.0

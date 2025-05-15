@@ -49,7 +49,7 @@ func _on_uptime_timer_timeout() -> void:
 		return
 	
 	is_active = false
-	animated_sprite_2d.play("escape")
+	animated_sprite_2d.play("dive")
 	escaped.emit(self, parent_hole)
 	animated_sprite_2d.connect("animation_finished", Callable(self, "_on_shot_animation_finished"))
 
@@ -57,4 +57,7 @@ func _on_shot_animation_finished() -> void:
 	queue_free()
 
 func _on_game_over() -> void:
+	is_active = false
+	animated_sprite_2d.play("dive")
+	await get_tree().create_timer(3.0).timeout
 	queue_free()

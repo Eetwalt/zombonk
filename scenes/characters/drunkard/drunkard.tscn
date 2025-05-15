@@ -273,7 +273,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_eni44")
 }],
 "loop": false,
-"name": &"escape",
+"name": &"dive",
 "speed": 15.0
 }, {
 "frames": [{
@@ -387,10 +387,8 @@ script = ExtResource("1_4t67d")
 position = Vector2(0, -64)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_kaiim")
-animation = &"raise"
+animation = &"dive"
 autoplay = "default"
-frame = 18
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -48)
