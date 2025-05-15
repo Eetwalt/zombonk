@@ -1,11 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cig1qxlos52y2"]
+[gd_scene load_steps=2 format=3 uid="uid://cig1qxlos52y2"]
 
-[ext_resource type="Texture2D" uid="uid://dqlesmcnvk72q" path="res://assets/ui/horror_ui.png" id="1_ogt1l"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e2vrk"]
-atlas = ExtResource("1_ogt1l")
-region = Rect2(199, 105, 18, 15)
+[ext_resource type="Texture2D" uid="uid://byxjmo3cy08d2" path="res://assets/ui/heart_empty.png" id="1_ogt1l"]
 
 [node name="HeartEmpty" type="TextureRect"]
-custom_minimum_size = Vector2(36, 30)
-texture = SubResource("AtlasTexture_e2vrk")
+custom_minimum_size = Vector2(30, 30)
+texture = ExtResource("1_ogt1l")

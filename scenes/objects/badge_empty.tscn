@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://0a6if5plyxyo"]
+
+[ext_resource type="Texture2D" uid="uid://du7him0pwtych" path="res://assets/ui/badge_empty.png" id="1_v27po"]
+
+[node name="BadgeEmpty" type="TextureRect"]
+custom_minimum_size = Vector2(30, 30)
+texture = ExtResource("1_v27po")

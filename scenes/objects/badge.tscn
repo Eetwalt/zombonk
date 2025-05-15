@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckmb1e3vwrh54"]
+
+[ext_resource type="Texture2D" uid="uid://dqq6p3tdjvste" path="res://assets/ui/badge.png" id="1_gykf8"]
+
+[node name="Badge" type="TextureRect"]
+custom_minimum_size = Vector2(30, 30)
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("1_gykf8")

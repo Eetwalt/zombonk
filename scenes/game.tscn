@@ -84,11 +84,15 @@ position = Vector2(1120, 624)
 [node name="SpawnTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="GameTimer" type="Timer" parent="."]
+wait_time = 5.0
+
 [node name="Cursor" parent="." instance=ExtResource("4_lbhrr")]
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(640, 360)
 script = ExtResource("7_u5sy4")
-randomStrength = 20.0
+randomStrength = 10.0
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

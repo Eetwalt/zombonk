@@ -1,18 +1,113 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmeepixmlhdoy"]
+[gd_scene load_steps=10 format=3 uid="uid://cmeepixmlhdoy"]
 
 [ext_resource type="Theme" uid="uid://ciqny1m6cdda7" path="res://scenes/ui/game_ui_theme.tres" id="1_e2vrk"]
 [ext_resource type="Script" uid="uid://e6oum0mhxs6l" path="res://scenes/ui/game_screen.gd" id="1_gusqm"]
-[ext_resource type="Texture2D" uid="uid://ew4lbx60w163" path="res://assets/JWDLx5AZBtI.jpg" id="3_gusqm"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e2vrk"]
+[ext_resource type="Texture2D" uid="uid://dl6hngnfm4qpw" path="res://assets/graveyard.jpeg" id="3_gusqm"]
+[ext_resource type="Texture2D" uid="uid://d0480dqbbnjfg" path="res://assets/ui/blood_overlay.png" id="4_gkbp4"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gkbp4"]
 texture = ExtResource("3_gusqm")
-modulate_color = Color(0.380392, 0, 0, 1)
+modulate_color = Color(0.749599, 0.7496, 0.749599, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e2vrk"]
+
+[sub_resource type="Animation" id="Animation_0kkfd"]
+resource_name = "blood_splatter"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BloodOverlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.498039), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nwa5a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BloodOverlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ooiym"]
+_data = {
+&"RESET": SubResource("Animation_nwa5a"),
+&"blood_splatter": SubResource("Animation_0kkfd")
+}
 
 [node name="GameScreen" type="CanvasLayer"]
 layer = 3
 script = ExtResource("1_gusqm")
+
+[node name="MainMenuContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_e2vrk")
+theme_override_styles/panel = SubResource("StyleBoxTexture_gkbp4")
+
+[node name="PanelContainer" type="PanelContainer" parent="MainMenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_type_variation = &"ChalkBoardContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenuContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 48
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MainMenuContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="GameTitleLabel" type="Label" parent="MainMenuContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"ScoreLabel"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "ZOMBONK"
+
+[node name="FinalScoreLabel" type="Label" parent="MainMenuContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"ScoreLabel"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Bonk & Prosper"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PlayAgainButton" type="Button" parent="MainMenuContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"PrimaryButton"
+text = "Play"
 
 [node name="GameContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -27,21 +122,43 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_e2vrk")
 [node name="MarginContainer" type="MarginContainer" parent="GameContainer"]
 layout_mode = 2
 
-[node name="HeartsPanelContainer" type="PanelContainer" parent="GameContainer/MarginContainer"]
-custom_minimum_size = Vector2(128, 44)
+[node name="VBoxContainer" type="VBoxContainer" parent="GameContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HeartsPanelContainer" type="PanelContainer" parent="GameContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(110, 44)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_type_variation = &"HeartContainer"
 
-[node name="MarginContainer" type="MarginContainer" parent="GameContainer/MarginContainer/HeartsPanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="GameContainer/MarginContainer/VBoxContainer/HeartsPanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HeartsContainer" type="HBoxContainer" parent="GameContainer/MarginContainer/HeartsPanelContainer/MarginContainer"]
+[node name="HeartsContainer" type="HBoxContainer" parent="GameContainer/MarginContainer/VBoxContainer/HeartsPanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="WarningsPanelContainer" type="PanelContainer" parent="GameContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(110, 44)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_type_variation = &"HeartContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="GameContainer/MarginContainer/VBoxContainer/WarningsPanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="WarningsContainer" type="HBoxContainer" parent="GameContainer/MarginContainer/VBoxContainer/WarningsPanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -128,58 +245,19 @@ layout_mode = 2
 theme_type_variation = &"PrimaryButton"
 text = "Main Menu"
 
-[node name="MainMenuContainer" type="PanelContainer" parent="."]
+[node name="BloodOverlay" type="TextureRect" parent="."]
 visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("1_e2vrk")
-theme_override_styles/panel = SubResource("StyleBoxTexture_gkbp4")
+modulate = Color(1, 1, 1, 0)
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+texture = ExtResource("4_gkbp4")
 
-[node name="MarginContainer" type="MarginContainer" parent="MainMenuContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 8
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ooiym")
+}
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 48
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="MainMenuContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 32
-
-[node name="GameTitleLabel" type="Label" parent="MainMenuContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"ScoreLabel"
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 40
-text = "ZOMBONK"
-
-[node name="FinalScoreLabel" type="Label" parent="MainMenuContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"ScoreLabel"
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 24
-text = "Bonk & Prosper"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 16
-
-[node name="PlayAgainButton" type="Button" parent="MainMenuContainer/MarginContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"PrimaryButton"
-text = "Play"
-
+[connection signal="pressed" from="MainMenuContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
 [connection signal="pressed" from="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
 [connection signal="pressed" from="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
-[connection signal="pressed" from="MainMenuContainer/MarginContainer/VBoxContainer/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
