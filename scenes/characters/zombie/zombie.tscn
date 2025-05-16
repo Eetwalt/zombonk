@@ -1,9 +1,13 @@
-[gd_scene load_steps=77 format=3 uid="uid://b237710apjpfq"]
+[gd_scene load_steps=83 format=3 uid="uid://b237710apjpfq"]
 
 [ext_resource type="Script" uid="uid://bj5aq1pyitwvt" path="res://scenes/characters/zombie/zombie.gd" id="1_n884q"]
 [ext_resource type="Texture2D" uid="uid://ct1ueiow4s7up" path="res://assets/game/characters/zombie/zombie.png" id="2_5jdp2"]
 [ext_resource type="Texture2D" uid="uid://cb6ypns3f33ax" path="res://assets/game/characters/zombie/zombie_attack.png" id="2_nvxh3"]
 [ext_resource type="Texture2D" uid="uid://vrolr5kwkfph" path="res://assets/game/characters/zombie/zombie-shot.png" id="3_hu0q8"]
+[ext_resource type="AudioStream" uid="uid://d2jxpemoeuy65" path="res://assets/audio/goblin/goblin-9.wav" id="5_076y6"]
+[ext_resource type="AudioStream" uid="uid://daj648rsbt4cf" path="res://assets/audio/goblin/goblin-8.wav" id="6_ij7uc"]
+[ext_resource type="AudioStream" uid="uid://cq0m544yhbc4y" path="res://assets/audio/goblin/goblin-12.wav" id="7_1fqab"]
+[ext_resource type="AudioStream" uid="uid://htktvmwb2hct" path="res://assets/audio/goblin/goblin-14.wav" id="8_he21v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hymtg"]
 atlas = ExtResource("2_nvxh3")
@@ -531,6 +535,15 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_7dfsl"]
 radius = 64.0703
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mbkyw"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_8ebu3"]
+streams_count = 4
+stream_0/stream = ExtResource("5_076y6")
+stream_1/stream = ExtResource("6_ij7uc")
+stream_2/stream = ExtResource("7_1fqab")
+stream_3/stream = ExtResource("8_he21v")
+
 [node name="Zombie" type="Area2D"]
 script = ExtResource("1_n884q")
 
@@ -548,6 +561,14 @@ shape = SubResource("CircleShape2D_7dfsl")
 [node name="UptimeTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="AudioStreamPlayer_Raising" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_mbkyw")
+bus = &"SFX"
+
+[node name="AudioStreamPlayer_Dying" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_8ebu3")
+bus = &"SFX"
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="UptimeTimer" to="." method="_on_uptime_timer_timeout"]

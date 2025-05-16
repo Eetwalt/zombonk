@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://cmeepixmlhdoy"]
+[gd_scene load_steps=13 format=3 uid="uid://cmeepixmlhdoy"]
 
 [ext_resource type="Theme" uid="uid://ciqny1m6cdda7" path="res://scenes/ui/game_ui_theme.tres" id="1_e2vrk"]
 [ext_resource type="Script" uid="uid://e6oum0mhxs6l" path="res://scenes/ui/game_screen.gd" id="1_gusqm"]
 [ext_resource type="Texture2D" uid="uid://dl6hngnfm4qpw" path="res://assets/graveyard.jpeg" id="3_gusqm"]
 [ext_resource type="Shader" uid="uid://254serxgsgsk" path="res://scenes/ui/face_warp.gdshader" id="4_0kkfd"]
 [ext_resource type="Texture2D" uid="uid://cn080dfqsuq6o" path="res://assets/game/characters/zombie/zombie_face.png" id="4_gkbp4"]
+[ext_resource type="AudioStream" uid="uid://mq1tcmmdmro2" path="res://assets/audio/music.mp3" id="6_nwa5a"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gkbp4"]
 texture = ExtResource("3_gusqm")
@@ -357,6 +358,10 @@ expand_mode = 1
 libraries = {
 &"": SubResource("AnimationLibrary_ooiym")
 }
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_nwa5a")
+bus = &"Music"
 
 [connection signal="pressed" from="MainMenuContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
 [connection signal="pressed" from="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]

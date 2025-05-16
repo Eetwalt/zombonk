@@ -83,10 +83,11 @@ func spawn_character(character_scene: PackedScene, chosen_hole: Node2D, characte
 	var new_character = character_scene.instantiate()
 	
 	var whacked_function = "_on_" + character_name + "_whacked"
-	var attacked_function = "_on_" + character_name + "_attacked"
-	
 	new_character.connect("whacked", Callable(self, whacked_function))
-	new_character.connect("attacked", Callable(self, attacked_function))
+	
+	if character_name == "zombie":
+		var attacked_function = "_on_" + character_name + "_attacked"
+		new_character.connect("attacked", Callable(self, attacked_function))
 
 	new_character.set_hole(chosen_hole)
 
@@ -107,9 +108,6 @@ func _on_drunkard_whacked(_drunkard_instance, _hole_instance) -> void:
 	warnings_updated.emit(warnings)
 	if warnings >= 3:
 		_on_game_over()
-
-func _on_drunkard_attacked(_drunkard_instance, _hole_instance) -> void:
-	pass
 
 func _on_game_timer_timeout() -> void:
 	if min_spawn_interval <= 0.0:

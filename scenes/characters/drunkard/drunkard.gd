@@ -4,7 +4,6 @@ var arrow = load("res://assets/ui/cursor.png")
 var arrow_down = load("res://assets/ui/cursor_shot.png")
 
 signal whacked(drunkard: PackedScene, hole: PackedScene)
-signal escaped(drunkard: PackedScene, hole: PackedScene)
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
@@ -50,7 +49,6 @@ func _on_uptime_timer_timeout() -> void:
 	
 	is_active = false
 	animated_sprite_2d.play("dive")
-	escaped.emit(self, parent_hole)
 	animated_sprite_2d.connect("animation_finished", Callable(self, "_on_shot_animation_finished"))
 
 func _on_shot_animation_finished() -> void:

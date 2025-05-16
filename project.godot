@@ -27,7 +27,9 @@ project/assembly_name="zombonk"
 [file_customization]
 
 folder_colors={
+"res://art_wip/": "red",
 "res://assets/": "orange",
+"res://export/": "teal",
 "res://scenes/": "green",
 "res://scripts/": "pink"
 }

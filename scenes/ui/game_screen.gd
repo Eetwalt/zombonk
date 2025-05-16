@@ -20,6 +20,8 @@ signal play_again
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var blood_overlay: TextureRect = $BloodOverlay
 
+@onready var music_player: AudioStreamPlayer = $MusicPlayer
+
 
 var hearts: Array = []
 
@@ -93,18 +95,21 @@ func _on_main_menu() -> void:
 	game_over_container.visible = false
 	main_menu_container.visible = true
 	blood_overlay.visible = false
+	music_player.stop()
 
 func _on_game_over() -> void:
 	game_container.visible = false
 	game_over_container.visible = true
 	main_menu_container.visible = false
 	blood_overlay.visible = false
+	music_player.stop()
 
 func _on_game_play() -> void:
 	game_container.visible = true
 	game_over_container.visible = false
 	main_menu_container.visible = false
 	blood_overlay.visible = true
+	music_player.play()
 
 func _on_play_again_button_pressed() -> void:
 	play_again.emit()
