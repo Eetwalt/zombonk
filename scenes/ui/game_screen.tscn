@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dl6hngnfm4qpw" path="res://assets/graveyard.jpeg" id="3_gusqm"]
 [ext_resource type="Shader" uid="uid://254serxgsgsk" path="res://scenes/ui/face_warp.gdshader" id="4_0kkfd"]
 [ext_resource type="Texture2D" uid="uid://cn080dfqsuq6o" path="res://assets/game/characters/zombie/zombie_face.png" id="4_gkbp4"]
-[ext_resource type="AudioStream" uid="uid://mq1tcmmdmro2" path="res://assets/audio/music.mp3" id="6_nwa5a"]
+[ext_resource type="AudioStream" uid="uid://d2qgr0i6fjflh" path="res://music/soundtrack2.mp3" id="6_nwa5a"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gkbp4"]
 texture = ExtResource("3_gusqm")

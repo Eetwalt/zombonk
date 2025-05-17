@@ -1,8 +1,9 @@
-[gd_scene load_steps=56 format=3 uid="uid://c40ncqx0gpkmp"]
+[gd_scene load_steps=58 format=3 uid="uid://c40ncqx0gpkmp"]
 
 [ext_resource type="Script" uid="uid://gxmn6s3jeesx" path="res://scenes/characters/drunkard/drunkard.gd" id="1_4t67d"]
 [ext_resource type="Texture2D" uid="uid://crhr5pxho1gbb" path="res://assets/game/characters/drunkard/drunkard.png" id="2_qgnbc"]
 [ext_resource type="Texture2D" uid="uid://b8e5kx0t0cxmb" path="res://assets/game/characters/drunkard/drunkard-shot.png" id="3_7newd"]
+[ext_resource type="AudioStream" uid="uid://cikgmuqj3oimp" path="res://assets/audio/goblin/goblin-11.wav" id="4_qgnbc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gfqnb"]
 atlas = ExtResource("2_qgnbc")
@@ -380,6 +381,12 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_7dfsl"]
 radius = 64.0703
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7newd"]
+random_pitch = 1.2
+random_volume_offset_db = 5.0
+streams_count = 1
+stream_0/stream = ExtResource("4_qgnbc")
+
 [node name="Drunkard" type="Area2D"]
 script = ExtResource("1_4t67d")
 
@@ -397,6 +404,12 @@ shape = SubResource("CircleShape2D_7dfsl")
 [node name="UptimeTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="AudioStreamPlayer_Raising" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_7newd")
+volume_db = -10.0
+pitch_scale = 0.4
+bus = &"SFX"
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="UptimeTimer" to="." method="_on_uptime_timer_timeout"]

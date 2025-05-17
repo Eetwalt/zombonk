@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://ct1ueiow4s7up" path="res://assets/game/characters/zombie/zombie.png" id="2_5jdp2"]
 [ext_resource type="Texture2D" uid="uid://cb6ypns3f33ax" path="res://assets/game/characters/zombie/zombie_attack.png" id="2_nvxh3"]
 [ext_resource type="Texture2D" uid="uid://vrolr5kwkfph" path="res://assets/game/characters/zombie/zombie-shot.png" id="3_hu0q8"]
-[ext_resource type="AudioStream" uid="uid://d2jxpemoeuy65" path="res://assets/audio/goblin/goblin-9.wav" id="5_076y6"]
+[ext_resource type="AudioStream" uid="uid://cikgmuqj3oimp" path="res://assets/audio/goblin/goblin-11.wav" id="5_ij7uc"]
 [ext_resource type="AudioStream" uid="uid://daj648rsbt4cf" path="res://assets/audio/goblin/goblin-8.wav" id="6_ij7uc"]
-[ext_resource type="AudioStream" uid="uid://cq0m544yhbc4y" path="res://assets/audio/goblin/goblin-12.wav" id="7_1fqab"]
+[ext_resource type="AudioStream" uid="uid://b6jydm8v2l885" path="res://assets/audio/goblin/goblin-1.wav" id="8_1fqab"]
 [ext_resource type="AudioStream" uid="uid://htktvmwb2hct" path="res://assets/audio/goblin/goblin-14.wav" id="8_he21v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hymtg"]
@@ -536,13 +536,17 @@ animations = [{
 radius = 64.0703
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mbkyw"]
+random_pitch = 1.2
+random_volume_offset_db = 5.0
+streams_count = 1
+stream_0/stream = ExtResource("5_ij7uc")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_8ebu3"]
-streams_count = 4
-stream_0/stream = ExtResource("5_076y6")
-stream_1/stream = ExtResource("6_ij7uc")
-stream_2/stream = ExtResource("7_1fqab")
-stream_3/stream = ExtResource("8_he21v")
+random_pitch = 1.2
+streams_count = 3
+stream_0/stream = ExtResource("6_ij7uc")
+stream_1/stream = ExtResource("8_he21v")
+stream_2/stream = ExtResource("8_1fqab")
 
 [node name="Zombie" type="Area2D"]
 script = ExtResource("1_n884q")
@@ -564,6 +568,7 @@ one_shot = true
 
 [node name="AudioStreamPlayer_Raising" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_mbkyw")
+volume_db = -10.0
 bus = &"SFX"
 
 [node name="AudioStreamPlayer_Dying" type="AudioStreamPlayer" parent="."]

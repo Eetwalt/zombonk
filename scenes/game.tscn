@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsycym3rhrc57"]
+[gd_scene load_steps=9 format=3 uid="uid://dsycym3rhrc57"]
 
 [ext_resource type="Script" uid="uid://bb4olehsgsm1y" path="res://scenes/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://dbkn6fh1r87jp" path="res://scenes/objects/hole.tscn" id="1_uwrxv"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dcjd0y32r2c03" path="res://scenes/ui/cursor.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://j486j6etpk04" path="res://scenes/objects/fog.tscn" id="6_p57ef"]
 [ext_resource type="Script" uid="uid://cxix883lc3g6x" path="res://scenes/camera.gd" id="7_u5sy4"]
+[ext_resource type="AudioStream" uid="uid://dgy03rfr0tc2l" path="res://assets/audio/8bit_gunloop_explosion.wav" id="8_gee14"]
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("game_screen")]
 script = ExtResource("1_lnu2h")
@@ -93,6 +94,11 @@ wait_time = 5.0
 position = Vector2(640, 360)
 script = ExtResource("7_u5sy4")
 randomStrength = 10.0
+
+[node name="Gunshot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_gee14")
+volume_db = -5.0
+bus = &"SFX"
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

@@ -10,6 +10,8 @@ signal whacked(drunkard: PackedScene, hole: PackedScene)
 @onready var uptime_timer: Timer = $UptimeTimer
 @onready var game = get_parent().get_parent().get_parent().get_parent()
 
+@onready var audio_raising: AudioStreamPlayer = $AudioStreamPlayer_Raising
+
 var parent_hole = null
 var is_active: bool = false
 
@@ -25,6 +27,7 @@ func appear() -> void:
 	is_active = true
 	animated_sprite_2d.play("raise")
 	uptime_timer.start()
+	audio_raising.play()
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if not is_active:

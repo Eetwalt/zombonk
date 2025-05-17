@@ -8,6 +8,7 @@ signal attacked(zombie: PackedScene, hole: PackedScene)
 
 @onready var audio_raising: AudioStreamPlayer = $AudioStreamPlayer_Raising
 @onready var audio_dying: AudioStreamPlayer = $AudioStreamPlayer_Dying
+@onready var gunshot: AudioStreamPlayer = $Gunshot
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D

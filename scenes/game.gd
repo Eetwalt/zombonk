@@ -72,9 +72,8 @@ func allocate_hole() -> void:
 	var chosen_hole = available_holes.pick_random()
 	
 	var random_value: float = randf()
-	print(random_value)
 	
-	if random_value < 0.70:
+	if random_value < 0.80:
 		spawn_character(zombie_scene, chosen_hole, "zombie")
 	else:
 		spawn_character(drunkard_scene, chosen_hole, "drunkard")
