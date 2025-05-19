@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://cmeepixmlhdoy"]
+[gd_scene load_steps=24 format=3 uid="uid://cmeepixmlhdoy"]
 
 [ext_resource type="Theme" uid="uid://ciqny1m6cdda7" path="res://scenes/ui/game_ui_theme.tres" id="1_e2vrk"]
 [ext_resource type="Script" uid="uid://e6oum0mhxs6l" path="res://scenes/ui/game_screen.gd" id="1_gusqm"]
+[ext_resource type="PackedScene" uid="uid://j486j6etpk04" path="res://scenes/objects/fog.tscn" id="2_wwq64"]
 [ext_resource type="Texture2D" uid="uid://dl6hngnfm4qpw" path="res://assets/graveyard.jpeg" id="3_gusqm"]
 [ext_resource type="Shader" uid="uid://254serxgsgsk" path="res://scenes/ui/face_warp.gdshader" id="4_0kkfd"]
 [ext_resource type="Texture2D" uid="uid://cy1f6tweffgqi" path="res://assets/logo-export.png" id="4_dscta"]
@@ -200,6 +201,7 @@ layer = 3
 script = ExtResource("1_gusqm")
 
 [node name="MainMenuContainer" type="PanelContainer" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -209,7 +211,7 @@ theme = ExtResource("1_e2vrk")
 theme_override_styles/panel = SubResource("StyleBoxTexture_gkbp4")
 
 [node name="PanelContainer" type="PanelContainer" parent="MainMenuContainer"]
-z_index = 1
+z_index = 6
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -262,7 +264,6 @@ mouse_filter = 2
 color = Color(1, 1, 1, 0.0862745)
 
 [node name="GameContainer" type="PanelContainer" parent="."]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -349,12 +350,14 @@ size_flags_vertical = 4
 theme = ExtResource("1_e2vrk")
 
 [node name="PanelContainer" type="PanelContainer" parent="GameOverContainer"]
+z_index = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_type_variation = &"MainMenuContainer"
 
 [node name="MarginContainer" type="MarginContainer" parent="GameOverContainer/PanelContainer"]
+z_index = 1
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
@@ -398,6 +401,14 @@ text = "Play Again"
 layout_mode = 2
 theme_type_variation = &"PrimaryButton"
 text = "Main Menu"
+
+[node name="ColorRect" type="ColorRect" parent="GameOverContainer/PanelContainer"]
+material = SubResource("CanvasItemMaterial_wwq64")
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.0862745)
+
+[node name="Fog" parent="." instance=ExtResource("2_wwq64")]
 
 [node name="BloodOverlay" type="TextureRect" parent="."]
 modulate = Color(0.153272, 0.750274, 0, 1)

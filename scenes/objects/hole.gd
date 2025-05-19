@@ -4,7 +4,7 @@ extends Node2D
 @onready var character_holder: Node = $CharacterHolder
 @onready var tombstone: Sprite2D = $Tombstone
 
-var stones: Array = ["stone1", "stone2", "stone3"] 
+var stones: Array = ["stone4", "stone5", "stone6", "stone7", "stone8", "stone9"] 
 var current_character = null
 
 func _ready() -> void:

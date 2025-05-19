@@ -1,15 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://dsycym3rhrc57"]
+[gd_scene load_steps=16 format=3 uid="uid://dsycym3rhrc57"]
 
 [ext_resource type="Script" uid="uid://bb4olehsgsm1y" path="res://scenes/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://dbkn6fh1r87jp" path="res://scenes/objects/hole.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://cmeepixmlhdoy" path="res://scenes/ui/game_screen.tscn" id="1_yqjtg"]
 [ext_resource type="Texture2D" uid="uid://dl6hngnfm4qpw" path="res://assets/graveyard.jpeg" id="2_iywne"]
 [ext_resource type="PackedScene" uid="uid://dcjd0y32r2c03" path="res://scenes/ui/cursor.tscn" id="4_lbhrr"]
-[ext_resource type="PackedScene" uid="uid://j486j6etpk04" path="res://scenes/objects/fog.tscn" id="6_p57ef"]
 [ext_resource type="Script" uid="uid://cxix883lc3g6x" path="res://scenes/camera.gd" id="7_u5sy4"]
 [ext_resource type="AudioStream" uid="uid://dgy03rfr0tc2l" path="res://assets/audio/8bit_gunloop_explosion.wav" id="8_gee14"]
 [ext_resource type="AudioStream" uid="uid://clet5pxhqmjxg" path="res://assets/audio/Rack.mp3" id="8_vtaks"]
 [ext_resource type="Texture2D" uid="uid://d2jyqoiybocb4" path="res://assets/ui/reload_bar..png" id="9_0tnpc"]
+[ext_resource type="Script" uid="uid://bwe46u6sqlf6p" path="res://scenes/point_light_2d.gd" id="10_vtaks"]
 
 [sub_resource type="Animation" id="Animation_vtaks"]
 length = 0.001
@@ -72,11 +72,20 @@ _data = {
 &"Reload Bar Filling": SubResource("Animation_0tnpc")
 }
 
+[sub_resource type="Gradient" id="Gradient_0tnpc"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vtaks"]
+gradient = SubResource("Gradient_0tnpc")
+width = 400
+height = 400
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0.5)
+
 [node name="Game" type="Node2D" node_paths=PackedStringArray("game_screen") groups=["game"]]
 script = ExtResource("1_lnu2h")
 game_screen = NodePath("GameScreen")
-
-[node name="Fog" parent="." instance=ExtResource("6_p57ef")]
 
 [node name="Background" type="TextureRect" parent="."]
 offset_right = 1280.0
@@ -158,12 +167,11 @@ randomStrength = 10.0
 
 [node name="Gunshot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_gee14")
-volume_db = -3.0
 bus = &"SFX"
 
 [node name="Rack" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_vtaks")
-volume_db = -6.0
+volume_db = -10.0
 bus = &"SFX"
 
 [node name="Cursor" parent="." instance=ExtResource("4_lbhrr")]
@@ -185,7 +193,7 @@ anchor_bottom = 1.0
 offset_left = 40.473
 offset_top = -34.033
 offset_right = 49.473
-offset_bottom = -34.033
+offset_bottom = 25.967
 grow_horizontal = 2
 grow_vertical = 0
 rotation = 3.14159
@@ -200,6 +208,17 @@ one_shot = true
 libraries = {
 &"": SubResource("AnimationLibrary_kvpfn")
 }
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(640, 360)
+energy = 1.2
+texture = SubResource("GradientTexture2D_vtaks")
+script = ExtResource("10_vtaks")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+color = Color(0.933382, 0.971823, 0.951798, 1)
+energy = 0.75
+blend_mode = 1
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

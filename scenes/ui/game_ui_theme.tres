@@ -118,6 +118,6 @@ PrimaryButton/styles/hover = SubResource("StyleBoxTexture_mtujg")
 PrimaryButton/styles/normal = SubResource("StyleBoxTexture_owel7")
 PrimaryButton/styles/pressed = SubResource("StyleBoxTexture_iyedh")
 ScoreLabel/base_type = &"Label"
-ScoreLabel/colors/font_color = Color(0.784314, 0.156863, 0.152941, 1)
+ScoreLabel/colors/font_color = Color(1, 1, 1, 1)
 ScoreLabel/font_sizes/font_size = 24
 ScoreLabel/fonts/font = ExtResource("2_68i34")

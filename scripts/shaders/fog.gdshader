@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform vec3 color = vec3(0.35, 0.48, 0.95);
+uniform vec3 color = vec3(0.85, 0.88, 0.85);
 uniform int OCTAVES = 1;
 
 float rand(vec2 coord){
@@ -41,5 +41,5 @@ void fragment() {
 
 	float final = fbm(coord + motion);
 
-	COLOR = vec4(color, final * 0.15);
+	COLOR = vec4(color, final * 0.10);
 }
