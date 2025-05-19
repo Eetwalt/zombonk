@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=19 format=3 uid="uid://ciqny1m6cdda7"]
+[gd_resource type="Theme" load_steps=21 format=3 uid="uid://ciqny1m6cdda7"]
 
 [ext_resource type="Texture2D" uid="uid://dqlesmcnvk72q" path="res://assets/ui/horror_ui.png" id="1_nhbk8"]
 [ext_resource type="FontVariation" uid="uid://cmlapx5qy3jx8" path="res://assets/ui/fonts/zx_palm_variation.tres" id="2_68i34"]
@@ -26,6 +26,17 @@ texture_margin_left = 2.0
 texture_margin_top = 2.0
 texture_margin_right = 2.0
 texture_margin_bottom = 4.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtjyl"]
+atlas = ExtResource("1_nhbk8")
+region = Rect2(133, 141, 54, 58)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cqa1q"]
+texture = SubResource("AtlasTexture_mtjyl")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(0, 0, 51, 58)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r32iy"]
 load_path = "res://.godot/imported/horror_ui.png-36a16160727a1916f1658d9c4248b94c.ctex"
@@ -93,6 +104,8 @@ ChalkBoardContainer/base_type = &"PanelContainer"
 ChalkBoardContainer/styles/panel = SubResource("StyleBoxTexture_1hvfw")
 HeartContainer/base_type = &"PanelContainer"
 HeartContainer/styles/panel = SubResource("StyleBoxTexture_mtjyl")
+MainMenuPanel/base_type = &"PanelContainer"
+MainMenuPanel/styles/panel = SubResource("StyleBoxTexture_cqa1q")
 MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10

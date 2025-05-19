@@ -533,7 +533,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7dfsl"]
-radius = 64.0703
+radius = 47.0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mbkyw"]
 random_pitch = 1.2
@@ -555,11 +555,13 @@ script = ExtResource("1_n884q")
 position = Vector2(0, -64)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_kaiim")
-animation = &"dive"
+animation = &"raise"
 autoplay = "hole"
+frame = 13
+frame_progress = 0.895454
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -48)
+position = Vector2(0, -40)
 shape = SubResource("CircleShape2D_7dfsl")
 
 [node name="UptimeTimer" type="Timer" parent="."]

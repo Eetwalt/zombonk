@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsycym3rhrc57"]
+[gd_scene load_steps=14 format=3 uid="uid://dsycym3rhrc57"]
 
 [ext_resource type="Script" uid="uid://bb4olehsgsm1y" path="res://scenes/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://dbkn6fh1r87jp" path="res://scenes/objects/hole.tscn" id="1_uwrxv"]
@@ -8,8 +8,71 @@
 [ext_resource type="PackedScene" uid="uid://j486j6etpk04" path="res://scenes/objects/fog.tscn" id="6_p57ef"]
 [ext_resource type="Script" uid="uid://cxix883lc3g6x" path="res://scenes/camera.gd" id="7_u5sy4"]
 [ext_resource type="AudioStream" uid="uid://dgy03rfr0tc2l" path="res://assets/audio/8bit_gunloop_explosion.wav" id="8_gee14"]
+[ext_resource type="AudioStream" uid="uid://clet5pxhqmjxg" path="res://assets/audio/Rack.mp3" id="8_vtaks"]
+[ext_resource type="Texture2D" uid="uid://d2jyqoiybocb4" path="res://assets/ui/reload_bar..png" id="9_0tnpc"]
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("game_screen")]
+[sub_resource type="Animation" id="Animation_vtaks"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cursor/ReloadBar/ReloadBarFill:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9, 60)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cursor/ReloadBar/ReloadBarFill:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0tnpc"]
+resource_name = "Reload Bar Filling"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cursor/ReloadBar/ReloadBarFill:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(9, 0), Vector2(9, 60)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cursor/ReloadBar/ReloadBarFill:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(0, 1, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kvpfn"]
+_data = {
+&"RESET": SubResource("Animation_vtaks"),
+&"Reload Bar Filling": SubResource("Animation_0tnpc")
+}
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("game_screen") groups=["game"]]
 script = ExtResource("1_lnu2h")
 game_screen = NodePath("GameScreen")
 
@@ -28,7 +91,7 @@ texture = ExtResource("2_iywne")
 [node name="HoleContainer" type="Node2D" parent="."]
 position = Vector2(0, 46)
 
-[node name="Hole" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
+[node name="Hole" parent="HoleContainer" groups=["game"] instance=ExtResource("1_uwrxv")]
 position = Vector2(160, 240)
 
 [node name="Hole2" parent="HoleContainer" instance=ExtResource("1_uwrxv")]
@@ -88,8 +151,6 @@ one_shot = true
 [node name="GameTimer" type="Timer" parent="."]
 wait_time = 5.0
 
-[node name="Cursor" parent="." instance=ExtResource("4_lbhrr")]
-
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(640, 360)
 script = ExtResource("7_u5sy4")
@@ -97,8 +158,49 @@ randomStrength = 10.0
 
 [node name="Gunshot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_gee14")
-volume_db = -5.0
+volume_db = -3.0
 bus = &"SFX"
+
+[node name="Rack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_vtaks")
+volume_db = -6.0
+bus = &"SFX"
+
+[node name="Cursor" parent="." instance=ExtResource("4_lbhrr")]
+z_index = 99
+position = Vector2(-53, 38)
+
+[node name="ReloadBar" type="Sprite2D" parent="Cursor"]
+texture = ExtResource("9_0tnpc")
+centered = false
+offset = Vector2(36, -32)
+
+[node name="ReloadBarFill" type="ColorRect" parent="Cursor/ReloadBar"]
+z_index = -1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 40.473
+offset_top = -34.033
+offset_right = 49.473
+offset_bottom = -34.033
+grow_horizontal = 2
+grow_vertical = 0
+rotation = 3.14159
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="ReloadTimer" type="Timer" parent="Cursor"]
+wait_time = 0.5
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_kvpfn")
+}
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
+[connection signal="timeout" from="Cursor/ReloadTimer" to="." method="_on_reload_timer_timeout"]

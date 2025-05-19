@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 signal play_again
+signal game_screen_updated(current_screen: String)
 
 @onready var game_container: PanelContainer = $GameContainer
 @onready var game_over_container: PanelContainer = $GameOverContainer
@@ -18,16 +19,24 @@ signal play_again
 
 @onready var final_score_label: Label = $GameOverContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/FinalScoreLabel
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+
 @onready var blood_overlay: TextureRect = $BloodOverlay
+@onready var hurt_sound: AudioStreamPlayer = $HurtSound
+
+@onready var sirens: ColorRect = $Sirens
+@onready var siren_sound: AudioStreamPlayer = $SirenSound
 
 @onready var music_player: AudioStreamPlayer = $MusicPlayer
 
+@onready var game_over_label: Label = $GameOverContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/GameOverLabel
+@onready var game_over_sound: AudioStreamPlayer = $GameOverSound
 
 var hearts: Array = []
 
 func _ready() -> void:
 	_on_main_menu()
 	blood_overlay.material.set_shader_parameter("opacity", 0.0)
+	sirens.hide()
 	
 	var game = get_parent()
 	if game:
@@ -43,6 +52,7 @@ func _on_score_updated(new_score: int) -> void:
 func _on_lives_updated(current_lives: int) -> void:
 	if current_lives < 3:
 		animation_player.play("blood_splatter")
+		hurt_sound.play()
 
 	set_hearts(current_lives)
 
@@ -68,6 +78,11 @@ func _on_warnings_updated(current_warnings: int) -> void:
 	set_warnings(current_warnings)
 
 func set_warnings(current_warnings: int) -> void:
+	if current_warnings > 0:
+		sirens.show()
+		animation_player.play("sirens")
+		siren_sound.play()
+	
 	for child in warnings_container.get_children():
 		child.queue_free()
 	
@@ -95,21 +110,32 @@ func _on_main_menu() -> void:
 	game_over_container.visible = false
 	main_menu_container.visible = true
 	blood_overlay.visible = false
-	music_player.stop()
+	music_player["parameters/switch_to_clip"] = "menu_music"
+	music_player.play()
+	game_screen_updated.emit("menu")
 
-func _on_game_over() -> void:
+func _on_game_over(reason: String) -> void:
 	game_container.visible = false
 	game_over_container.visible = true
 	main_menu_container.visible = false
 	blood_overlay.visible = false
 	music_player.stop()
+	game_over_sound.play()
+	game_screen_updated.emit("game_over")
+	if reason == "died":
+		game_over_label.text = "You died"
+		
+	if reason == "jailed":
+		game_over_label.text = "You got jailed"
 
 func _on_game_play() -> void:
 	game_container.visible = true
 	game_over_container.visible = false
 	main_menu_container.visible = false
 	blood_overlay.visible = true
+	music_player["parameters/switch_to_clip"] = "game_music"
 	music_player.play()
+	game_screen_updated.emit("game")
 
 func _on_play_again_button_pressed() -> void:
 	play_again.emit()

@@ -30,6 +30,7 @@ folder_colors={
 "res://art_wip/": "red",
 "res://assets/": "orange",
 "res://export/": "teal",
+"res://music/": "blue",
 "res://scenes/": "green",
 "res://scripts/": "pink"
 }

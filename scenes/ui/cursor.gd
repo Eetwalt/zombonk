@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 var arrow = load("res://assets/ui/cursor.png")
 

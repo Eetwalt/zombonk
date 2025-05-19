@@ -1,15 +1,25 @@
-[gd_scene load_steps=13 format=3 uid="uid://cmeepixmlhdoy"]
+[gd_scene load_steps=23 format=3 uid="uid://cmeepixmlhdoy"]
 
 [ext_resource type="Theme" uid="uid://ciqny1m6cdda7" path="res://scenes/ui/game_ui_theme.tres" id="1_e2vrk"]
 [ext_resource type="Script" uid="uid://e6oum0mhxs6l" path="res://scenes/ui/game_screen.gd" id="1_gusqm"]
 [ext_resource type="Texture2D" uid="uid://dl6hngnfm4qpw" path="res://assets/graveyard.jpeg" id="3_gusqm"]
 [ext_resource type="Shader" uid="uid://254serxgsgsk" path="res://scenes/ui/face_warp.gdshader" id="4_0kkfd"]
+[ext_resource type="Texture2D" uid="uid://cy1f6tweffgqi" path="res://assets/logo-export.png" id="4_dscta"]
 [ext_resource type="Texture2D" uid="uid://cn080dfqsuq6o" path="res://assets/game/characters/zombie/zombie_face.png" id="4_gkbp4"]
-[ext_resource type="AudioStream" uid="uid://d2qgr0i6fjflh" path="res://music/soundtrack2.mp3" id="6_nwa5a"]
+[ext_resource type="Shader" uid="uid://we50v23enwle" path="res://scenes/ui/sirens.gdshader" id="7_ooiym"]
+[ext_resource type="AudioStream" uid="uid://c43bgbw6xxmjx" path="res://music/menu_music.mp3" id="7_r1vnj"]
+[ext_resource type="AudioStream" uid="uid://crkdspicd0ypf" path="res://music/game_music.mp3" id="8_c0p0g"]
+[ext_resource type="AudioStream" uid="uid://d2qst5ny14iae" path="res://assets/audio/siren.wav" id="8_ce4rh"]
+[ext_resource type="AudioStream" uid="uid://bg6t1jj7cwne0" path="res://assets/audio/game_over.mp3" id="10_c0p0g"]
+[ext_resource type="AudioStream" uid="uid://2mm6neba21i2" path="res://assets/audio/hurt.mp3" id="11_nktmq"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gkbp4"]
 texture = ExtResource("3_gusqm")
-modulate_color = Color(0.749599, 0.7496, 0.749599, 1)
+modulate_color = Color(0.564945, 0.564947, 0.564945, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wwq64"]
+blend_mode = 2
+light_mode = 1
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e2vrk"]
 
@@ -28,6 +38,16 @@ shader_parameter/firstHalf = 0.5
 shader_parameter/secondHalf = 0.5
 shader_parameter/freezeFirstHalf = false
 shader_parameter/freezeSecondHalf = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ce4rh"]
+shader = ExtResource("7_ooiym")
+shader_parameter/red_color = Color(1, 0, 0, 0.65)
+shader_parameter/blue_color = Color(0, 0.2, 1, 0.65)
+shader_parameter/speed = 3.5
+shader_parameter/beam_width = 0.5
+shader_parameter/slant_amount = 0.5
+shader_parameter/intensity_multiplier = 0.5
+shader_parameter/flash_frequency = 0.0
 
 [sub_resource type="Animation" id="Animation_nwa5a"]
 length = 0.001
@@ -78,6 +98,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sirens:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_0kkfd"]
@@ -131,11 +163,37 @@ tracks/3/keys = {
 "values": [0.0, 1.0, 0.0]
 }
 
+[sub_resource type="Animation" id="Animation_ooiym"]
+resource_name = "sirens"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sirens:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 2.9, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ooiym"]
 _data = {
 &"RESET": SubResource("Animation_nwa5a"),
-&"blood_splatter": SubResource("Animation_0kkfd")
+&"blood_splatter": SubResource("Animation_0kkfd"),
+&"sirens": SubResource("Animation_ooiym")
 }
+
+[sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_r1vnj"]
+clip_count = 2
+clip_0/name = &"menu_music"
+clip_0/stream = ExtResource("7_r1vnj")
+clip_0/auto_advance = 0
+clip_1/name = &"game_music"
+clip_1/stream = ExtResource("8_c0p0g")
+clip_1/auto_advance = 0
 
 [node name="GameScreen" type="CanvasLayer"]
 layer = 3
@@ -151,15 +209,15 @@ theme = ExtResource("1_e2vrk")
 theme_override_styles/panel = SubResource("StyleBoxTexture_gkbp4")
 
 [node name="PanelContainer" type="PanelContainer" parent="MainMenuContainer"]
+z_index = 1
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_type_variation = &"ChalkBoardContainer"
+theme_type_variation = &"MainMenuPanel"
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMenuContainer/PanelContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
@@ -171,15 +229,14 @@ theme_override_constants/separation = 48
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MainMenuContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 32
+theme_override_constants/separation = 8
 
-[node name="GameTitleLabel" type="Label" parent="MainMenuContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="MainMenuContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"ScoreLabel"
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 40
-text = "ZOMBONK"
+texture = ExtResource("4_dscta")
+expand_mode = 2
+stretch_mode = 5
 
 [node name="FinalScoreLabel" type="Label" parent="MainMenuContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -187,7 +244,7 @@ size_flags_horizontal = 4
 theme_type_variation = &"ScoreLabel"
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 24
-text = "Bonk & Prosper"
+text = "Pop & Prosper"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenuContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -197,6 +254,12 @@ theme_override_constants/separation = 16
 layout_mode = 2
 theme_type_variation = &"PrimaryButton"
 text = "Play"
+
+[node name="ColorRect" type="ColorRect" parent="MainMenuContainer"]
+material = SubResource("CanvasItemMaterial_wwq64")
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.0862745)
 
 [node name="GameContainer" type="PanelContainer" parent="."]
 visible = false
@@ -289,14 +352,14 @@ theme = ExtResource("1_e2vrk")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_type_variation = &"ChalkBoardContainer"
+theme_type_variation = &"MainMenuContainer"
 
 [node name="MarginContainer" type="MarginContainer" parent="GameOverContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 4
+theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_bottom = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GameOverContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
@@ -354,14 +417,38 @@ mouse_filter = 2
 texture = ExtResource("4_gkbp4")
 expand_mode = 1
 
+[node name="Sirens" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_ce4rh")
+custom_minimum_size = Vector2(1280, 720)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_ooiym")
 }
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_nwa5a")
+stream = SubResource("AudioStreamInteractive_r1vnj")
 bus = &"Music"
+
+[node name="SirenSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_ce4rh")
+bus = &"SFX"
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_c0p0g")
+bus = &"SFX"
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_nktmq")
+bus = &"SFX"
 
 [connection signal="pressed" from="MainMenuContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
 [connection signal="pressed" from="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]

@@ -1,7 +1,5 @@
 extends Camera2D
 
-@onready var gunshot: AudioStreamPlayer = $"../Gunshot"
-
 @export var randomStrength: float = 30.0
 @export var shakeFade: float = 5.0
 
@@ -18,11 +16,12 @@ func apply_shake():
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("bonk"):
 		apply_shake()
-		gunshot.play()
+
 	
 	if shake_strength > 0:
 		shake_strength = lerpf(shake_strength,0,shakeFade * delta)
 		
 		offset = randomOffset()
+
 func randomOffset() -> Vector2:
 	return Vector2(rng.randf_range(-shake_strength,shake_strength),rng.randf_range(-shake_strength,shake_strength))
