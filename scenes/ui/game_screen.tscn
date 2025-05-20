@@ -44,11 +44,9 @@ shader_parameter/freezeSecondHalf = false
 shader = ExtResource("7_ooiym")
 shader_parameter/red_color = Color(1, 0, 0, 0.65)
 shader_parameter/blue_color = Color(0, 0.2, 1, 0.65)
-shader_parameter/speed = 3.5
-shader_parameter/beam_width = 0.5
-shader_parameter/slant_amount = 0.5
+shader_parameter/speed = 1.3
 shader_parameter/intensity_multiplier = 0.5
-shader_parameter/flash_frequency = 0.0
+shader_parameter/flash_frequency = 1.0
 
 [sub_resource type="Animation" id="Animation_nwa5a"]
 length = 0.001
